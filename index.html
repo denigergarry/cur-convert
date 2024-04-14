@@ -167,7 +167,7 @@ function multFloats(x, y) {
  */
 function submit() {
     const url = 
-          `https://min-api.cryptocompare.com/data/price?fsym=${currencyFromValue}&tsyms=${currencyToValue}&api_key=1f3f23519d23025a4035226599a500c80a7ac26425ec2a83fa1dc74df238d567`;
+          `https://min-api.cryptocompare.com/data/price?fsym=${currencyFromValue}&tsyms=${currencyToValue}`;
 
     fetch(url)
         .then(res => res.json())
