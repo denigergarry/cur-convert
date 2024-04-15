@@ -110,7 +110,7 @@ body {
     <span>This cryptocurrency converter was made with the <a href="https://cryptocompare.com/api">CryptoCompare API</a></span>
 
     <form>
-        <select name="currencyFrom" id="currencyFrom">
+        <select name="select_currency_from" id="select_currency_from">
             <option value="">-- Select a currency --</option>
             <option value="BTC">BTC</option>
             <option value="ETH">ETH</option>
@@ -135,18 +135,18 @@ body {
   <script>
     const bodyEl = document.querySelector('body');
 const resultEl = document.querySelector('#result');
-const currencyFromSelect = document.querySelector('#currencyFrom');
+const select_currency_fromSelect = document.querySelector('#select_currency_from');
 const amountFromInput = document.querySelector('#amountFrom');
 const currencyToSelect = document.querySelector('#currencyTo');
 
-let currencyFromValue = currencyFromSelect.value;
+let select_currency_fromValue = select_currency_fromSelect.value;
 let amountFromValue = amountFrom.value;
 let currencyToValue = currencyToSelect.value;
 
-currencyFromSelect.addEventListener('change', () => {
-    currencyFromValue = currencyFromSelect.value;
+select_currency_fromSelect.addEventListener('change', () => {
+    select_currency_fromValue = select_currency_fromSelect.value;
     bodyEl.className = '';
-    bodyEl.classList.add(currencyFromSelect.value);
+    bodyEl.classList.add(select_currency_fromSelect.value);
     validate();
 });
 
@@ -166,7 +166,7 @@ currencyToSelect.addEventListener('change', () => {
  */
 function validate() {
     if (
-        currencyFromValue !== '' &&
+        select_currency_fromValue !== '' &&
         amountFromValue !== '' &&
         currencyToValue !== ''
     ) {
@@ -199,12 +199,12 @@ function multFloats(x, y) {
  */
 function submit() {
     const url = 
-          `https://min-api.cryptocompare.com/data/price?fsym=${currencyFromValue}&tsyms=${currencyToValue}`;
+          `https://min-api.cryptocompare.com/data/price?fsym=${select_currency_fromValue}&tsyms=${currencyToValue}`;
 
     fetch(url)
         .then(res => res.json())
         .then(data => {
-            const fromText = `${amountFromValue} ${currencyFromValue}`;
+            const fromText = `${amountFromValue} ${select_currency_fromValue}`;
             const inputAmount = parseFloat(amountFromValue);
             const dataAmount = parseFloat(data[currencyToValue]);
             const resultAmount = multFloats(inputAmount, dataAmount);
