@@ -118,7 +118,7 @@ body {
             <option value="EUR">EUR</option>
         </select>
         <input type="number" name="select_amount_from" id="select_amount_from">
-        <select name="currencyTo" id="currencyTo">
+        <select name="select_currency_to" id="select_currency_to">
             <option value="">-- Select a currency --</option>
             <option value="USDT">USDT</option>
             <option value="EUR">EUR</option>
@@ -137,11 +137,11 @@ body {
 const resultEl = document.querySelector('#result');
 const select_currency_fromSelect = document.querySelector('#select_currency_from');
 const select_amount_fromInput = document.querySelector('#select_amount_from');
-const currencyToSelect = document.querySelector('#currencyTo');
+const select_currency_toSelect = document.querySelector('#select_currency_to');
 
 let select_currency_fromValue = select_currency_fromSelect.value;
 let select_amount_fromValue = select_amount_from.value;
-let currencyToValue = currencyToSelect.value;
+let select_currency_toValue = select_currency_toSelect.value;
 
 select_currency_fromSelect.addEventListener('change', () => {
     select_currency_fromValue = select_currency_fromSelect.value;
@@ -155,8 +155,8 @@ select_amount_fromInput.addEventListener('change', () => {
     validate();
 });
 
-currencyToSelect.addEventListener('change', () => {
-    currencyToValue = currencyToSelect.value;
+select_currency_toSelect.addEventListener('change', () => {
+    select_currency_toValue = select_currency_toSelect.value;
     validate();
 });
 
@@ -168,7 +168,7 @@ function validate() {
     if (
         select_currency_fromValue !== '' &&
         select_amount_fromValue !== '' &&
-        currencyToValue !== ''
+        select_currency_toValue !== ''
     ) {
         submit();
     } else {
@@ -199,16 +199,16 @@ function multFloats(x, y) {
  */
 function submit() {
     const url = 
-          `https://min-api.cryptocompare.com/data/price?fsym=${select_currency_fromValue}&tsyms=${currencyToValue}`;
+          `https://min-api.cryptocompare.com/data/price?fsym=${select_currency_fromValue}&tsyms=${select_currency_toValue}`;
 
     fetch(url)
         .then(res => res.json())
         .then(data => {
             const fromText = `${select_amount_fromValue} ${select_currency_fromValue}`;
             const inputAmount = parseFloat(select_amount_fromValue);
-            const dataAmount = parseFloat(data[currencyToValue]);
+            const dataAmount = parseFloat(data[select_currency_toValue]);
             const resultAmount = multFloats(inputAmount, dataAmount);
-            const toText = `${resultAmount} ${currencyToValue}`;
+            const toText = `${resultAmount} ${select_currency_toValue}`;
             result.innerText = `${fromText} = ${toText}`;
         })
         .catch(err => {
