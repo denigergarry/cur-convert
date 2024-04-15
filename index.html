@@ -117,7 +117,7 @@ body {
             <option value="USD">USD</option>
             <option value="EUR">EUR</option>
         </select>
-        <input type="number" name="amountFrom" id="amountFrom">
+        <input type="number" name="select_amount_from" id="select_amount_from">
         <select name="currencyTo" id="currencyTo">
             <option value="">-- Select a currency --</option>
             <option value="USDT">USDT</option>
@@ -136,11 +136,11 @@ body {
     const bodyEl = document.querySelector('body');
 const resultEl = document.querySelector('#result');
 const select_currency_fromSelect = document.querySelector('#select_currency_from');
-const amountFromInput = document.querySelector('#amountFrom');
+const select_amount_fromInput = document.querySelector('#select_amount_from');
 const currencyToSelect = document.querySelector('#currencyTo');
 
 let select_currency_fromValue = select_currency_fromSelect.value;
-let amountFromValue = amountFrom.value;
+let select_amount_fromValue = select_amount_from.value;
 let currencyToValue = currencyToSelect.value;
 
 select_currency_fromSelect.addEventListener('change', () => {
@@ -150,8 +150,8 @@ select_currency_fromSelect.addEventListener('change', () => {
     validate();
 });
 
-amountFromInput.addEventListener('change', () => {
-    amountFromValue = amountFromInput.value;
+select_amount_fromInput.addEventListener('change', () => {
+    select_amount_fromValue = select_amount_fromInput.value;
     validate();
 });
 
@@ -167,7 +167,7 @@ currencyToSelect.addEventListener('change', () => {
 function validate() {
     if (
         select_currency_fromValue !== '' &&
-        amountFromValue !== '' &&
+        select_amount_fromValue !== '' &&
         currencyToValue !== ''
     ) {
         submit();
@@ -204,8 +204,8 @@ function submit() {
     fetch(url)
         .then(res => res.json())
         .then(data => {
-            const fromText = `${amountFromValue} ${select_currency_fromValue}`;
-            const inputAmount = parseFloat(amountFromValue);
+            const fromText = `${select_amount_fromValue} ${select_currency_fromValue}`;
+            const inputAmount = parseFloat(select_amount_fromValue);
             const dataAmount = parseFloat(data[currencyToValue]);
             const resultAmount = multFloats(inputAmount, dataAmount);
             const toText = `${resultAmount} ${currencyToValue}`;
